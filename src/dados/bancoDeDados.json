@@ -1,0 +1,44 @@
+{
+  "usuario": { 
+    "nome": "Rodrigo Cotrin", 
+    "cargo": "Diretor de Operações",
+    "saldo": 1450.80, 
+    "foto": "https://github.com/rodrigocotrin.png" 
+  },
+  "categorias": [
+    { "id": 1, "nome": "Burger", "icone": "🍔" },
+    { "id": 2, "nome": "Bebidas", "icone": "🥤" },
+    { "id": 3, "nome": "Frutos do Mar", "icone": "🦐" },
+    { "id": 4, "nome": "Pizza", "icone": "🍕" },
+    { "id": 5, "nome": "Frango", "icone": "🍗" },
+    { "id": 6, "nome": "Saudável", "icone": "🥗" },
+    { "id": 7, "nome": "Doces", "icone": "🍩" },
+    { "id": 8, "nome": "Asiática", "icone": "🍣" }
+  ],
+  "pratosPopulares": [
+    { "id": 101, "categoriaId": 1, "nome": "Bitebox Supreme", "preco": 35.90, "avaliacao": 4.9, "tag": "Alta Rotação", "imagem": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80", "descricao": "Blend de 180g de Angus, queijo cheddar inglês, bacon rústico e molho especial no pão brioche." },
+    { "id": 102, "categoriaId": 5, "nome": "Frango Rústico", "preco": 42.50, "avaliacao": 4.8, "tag": "Estável", "imagem": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80", "descricao": "Peito de frango grelhado com ervas finas, acompanhado de legumes salteados na manteiga." },
+    { "id": 103, "categoriaId": 4, "nome": "Pizza Artesanal", "preco": 65.00, "avaliacao": 4.7, "tag": "Margem Alta", "imagem": "https://images.unsplash.com/photo-1513104890e38-7c7f43c25e28?auto=format&fit=crop&w=600&q=80", "descricao": "Massa de fermentação natural, molho San Marzano, mozzarella fresca e manjericão." },
+    { "id": 104, "categoriaId": 2, "nome": "Suco Detox Premium", "preco": 15.00, "avaliacao": 4.9, "tag": "Fresco", "imagem": "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80", "descricao": "Laranja, cenoura, maçã e gengibre prensados a frio." },
+    { "id": 105, "categoriaId": 8, "nome": "Combinado Omakase", "preco": 120.00, "avaliacao": 5.0, "tag": "Crítico", "imagem": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80", "descricao": "Seleção do chef com 30 peças de cortes nobres de salmão, atum e peixe branco." },
+    { "id": 106, "categoriaId": 6, "nome": "Salada Mediterrânea", "preco": 32.90, "avaliacao": 4.6, "tag": "Estável", "imagem": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80", "descricao": "Mix de folhas, tomate cereja, azeitonas pretas, queijo feta e azeite trufado." },
+    { "id": 107, "categoriaId": 7, "nome": "Bolo Dark Chocolate", "preco": 22.50, "avaliacao": 4.9, "tag": "Margem Alta", "imagem": "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=600&q=80", "descricao": "Fatia de bolo de cacau 70% com ganache belga e frutas vermelhas." },
+    { "id": 108, "categoriaId": 3, "nome": "Camarão Empanado", "preco": 89.00, "avaliacao": 4.8, "tag": "Alta Rotação", "imagem": "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80", "descricao": "Camarões grandes empanados em farinha panko com molho agridoce picante." },
+    { "id": 109, "categoriaId": 1, "nome": "Smash Burger Duplo", "preco": 28.90, "avaliacao": 4.7, "tag": "Estável", "imagem": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80", "descricao": "Dois discos de carne prensados na chapa, queijo prato derretido e cebola caramelizada." },
+    { "id": 110, "categoriaId": 4, "nome": "Pizza Pepperoni", "preco": 58.00, "avaliacao": 4.5, "tag": "Estável", "imagem": "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80", "descricao": "Massa fina crocante com fatias generosas de pepperoni e queijo mozzarella." }
+  ],
+  "pedidos": [
+    { "id": "PED-9402", "data": "2026-06-01", "restaurante": "Mesa 04 - Salão", "total": 47.90, "status": "Pendente" },
+    { "id": "PED-9401", "data": "2026-06-01", "restaurante": "Delivery App", "total": 120.00, "status": "Em Preparo" },
+    { "id": "PED-9400", "data": "2026-05-31", "restaurante": "Totem Entrada", "total": 65.00, "status": "Entregue" }
+  ],
+  "mensagens": [
+    { "id": 1, "cliente": "Carlos Oliveira", "pedidoId": "PED-9402", "texto": "Por favor, remover cebola do blend artesanal.", "horario": "19:42", "respondida": false },
+    { "id": 2, "cliente": "Beatriz Ramos", "pedidoId": "PED-9401", "texto": "Poderia enviar sachês extras de molho barbecue?", "horario": "19:15", "respondida": true }
+  ],
+  "filiais": [
+    { "id": 1, "local": "Vila Nova Mazzei", "status": "Operando", "faturamento": 8450.00, "eficiencia": "98%" },
+    { "id": 2, "local": "Santana Centro", "status": "Operando", "faturamento": 12300.50, "eficiencia": "94%" },
+    { "id": 3, "local": "Guarulhos Aeroporto", "status": "Manutenção", "faturamento": 4500.00, "eficiencia": "80%" }
+  ]
+}
