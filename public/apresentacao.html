@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pitch Deck | Bitebox SaaS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg: #0B1120;
+      --text: #F8FAFC;
+      --brand: #FF6B00;
+      --brand-glow: rgba(255, 107, 0, 0.4);
+      --card: rgba(30, 41, 59, 0.7);
+      --border: #334155;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      transition: opacity 0.5s ease;
+    }
+
+    .grid-bg {
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: panBg 100s linear infinite;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    @keyframes panBg {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 900; }
+
+    .slider { position: relative; width: 100vw; height: 100vh; z-index: 1; }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+      transform: scale(0.98) translateY(30px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    .text-brand { color: var(--brand); text-shadow: 0 0 20px var(--brand-glow); }
+    .text-center { text-align: center; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    
+    .title-giant { font-size: 5.5rem; letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; }
+    .subtitle { font-size: 1.6rem; color: #94A3B8; font-weight: 400; max-width: 900px; line-height: 1.5; }
+    
+    .footer-bar {
+      position: absolute; bottom: 40px; left: 80px; right: 80px;
+      display: flex; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 20px;
+      font-size: 0.95rem; color: #94A3B8; font-weight: 600; letter-spacing: 1px;
+    }
+
+    .topic-list { list-style: none; display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+    .topic-item { display: flex; align-items: flex-start; gap: 16px; font-size: 1.4rem; line-height: 1.5; }
+    .topic-icon { color: var(--brand); flex-shrink: 0; margin-top: 4px; filter: drop-shadow(0 0 8px var(--brand-glow)); }
+
+    .glass-panel {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .code-window {
+      background: #050505; border-radius: 16px; border: 1px solid var(--border);
+      padding: 32px; font-family: monospace; font-size: 1.1rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8); overflow: hidden; position: relative;
+    }
+    .code-header { display: flex; gap: 8px; margin-bottom: 24px; }
+    .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+    .mac-red { background: #FF5F56; } .mac-yellow { background: #FFBD2E; } .mac-green { background: #27C93F; }
+    
+    .tech-stack { display: flex; align-items: center; justify-content: center; gap: 40px; margin: 60px 0; }
+    .tech-item { background: var(--card); backdrop-filter: blur(10px); padding: 32px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; gap: 16px; min-width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s; }
+    .tech-item:hover { transform: translateY(-10px); border-color: var(--brand); }
+    .tech-line { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, var(--brand), transparent); opacity: 0.5; }
+
+    .script-box {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background: rgba(11, 17, 32, 0.98); border-top: 2px solid var(--brand);
+      padding: 24px 80px; font-size: 1.3rem; line-height: 1.6;
+      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); z-index: 100;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    }
+    .script-box.visible { transform: translateY(0); }
+    .speaker-badge { background: var(--brand); color: #FFF; padding: 4px 12px; border-radius: 6px; font-weight: 800; font-size: 1rem; margin-right: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .qr-container { background: #FFF; padding: 24px; border-radius: 24px; display: inline-block; box-shadow: 0 0 40px var(--brand-glow); }
+  </style>
+</head>
+<body>
+
+  <div class="grid-bg"></div>
+
+  <div class="slider" id="slider">
+
+    <div class="slide active" data-script="<span class='speaker-badge'>Rodrigo</span> Bom dia. A maioria dos projetos foca na vitrine: o aplicativo onde o cliente compra. Nós decidimos focar na raiz estrutural do problema gastronômico: a operação. Hoje apresentamos a arquitetura do Bitebox, uma infraestrutura B2B desenvolvida para dar controle absoluto aos executivos e diretores de uma franquia.">
+      <div class="text-center" style="margin-top: -60px;">
+        <i data-lucide="box" style="width: 120px; height: 120px; color: var(--brand); margin-bottom: 32px; filter: drop-shadow(0 0 20px rgba(255,107,0,0.5));"></i>
+        <h1 class="title-giant">BITEBOX <span class="text-brand">SAAS</span></h1>
+        <p class="subtitle" style="margin: 0 auto;">Infraestrutura B2B de Telemetria e Gestão Gastronômica.</p>
+      </div>
+      <div class="footer-bar">
+        <span>SPODWE2 - IFSP</span>
+        <span>RENAN MOREIRA | RODRIGO COTRIN | RANDU JOSE</span>
+      </div>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Renan</span> Nossa tese de projeto subverteu o requisito acadêmico. Em vez de simularmos um fluxo genérico de delivery, construímos o 'cérebro' por trás da operação. Nossa aplicação manipula quatro instâncias relacionais críticas: O Catálogo de Insumos, a Fila Lógica de Produção, o Controle SAC de Chamados e a Inteligência Fiscal por Filial.">
+      <div class="grid-2 h-full">
+        <div class="glass-panel text-center" style="position: relative; overflow: hidden;">
+          <div style="position: absolute; top:0; left:0; width: 100%; height: 100%; background: rgba(231, 76, 60, 0.05); display: flex; align-items: center; justify-content: center; z-index: 2;">
+            <i data-lucide="x-octagon" style="width: 140px; height: 140px; color: #E74C3C; opacity: 0.6;"></i>
+          </div>
+          <h3 style="font-size: 2.2rem; color: #94A3B8; margin-bottom: 24px;">App B2C Genérico</h3>
+          <div style="height: 300px; background: #0F172A; border-radius: 16px; border: 1px solid var(--border);"></div>
+        </div>
+        <div>
+          <h2 style="font-size: 4rem; margin-bottom: 16px;">Subversão de <br><span class="text-brand">Domínio</span></h2>
+          <ul class="topic-list">
+            <li class="topic-item"><i data-lucide="crosshair" class="topic-icon"></i> <div><strong>A Dor Real:</strong> Descontrole de matriz de catálogo e gargalos no fluxo de produção.</div></li>
+            <li class="topic-item"><i data-lucide="cpu" class="topic-icon"></i> <div><strong>A Solução:</strong> Painel Administrativo de Alta Performance (SPA).</div></li>
+            <li class="topic-item"><i data-lucide="briefcase" class="topic-icon"></i> <div><strong>O Foco de Negócio:</strong> Operadores e Diretores, não consumidores finais.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Randu</span> Nossa fundação técnica elimina recarregamentos de página. A aplicação é uma SPA rigorosa. O React atua como motor de mutação do DOM, o Vite otimizou a compilação do pipeline e o roteamento assíncrono é tratado pelo React Router, garantindo navegação instantânea. Todo o estado inicial é hidratado por uma matriz JSON, simulando perfeitamente o comportamento de uma API REST.">
+      <h2 style="font-size: 3.5rem; text-align: center;">Stack Tecnológica <span class="text-brand">Corporativa</span></h2>
+      <div class="tech-stack">
+        <div class="tech-item"><i data-lucide="atom" style="width: 56px; height: 56px; color: #61DAFB;"></i><strong>React 18</strong></div>
+        <div class="tech-line"></div>
+        <div class="tech-item"><i data-lucide="zap" style="width: 56px; height: 56px; color: #646CFF;"></i><strong>Vite</strong></div>
+        <div class="tech-line"></div>
+        <div class="tech-item"><i data-lucide="route" style="width: 56px; height: 56px; color: #CA4245;"></i><strong>React Router</strong></div>
+      </div>
+      <ul class="topic-list" style="max-width: 1000px; margin: 0 auto;">
+        <li class="topic-item"><i data-lucide="server-off" class="topic-icon"></i> <div><strong>Client-Side Rendering (CSR):</strong> Arquitetura puramente front-end sem recarregamento.</div></li>
+        <li class="topic-item"><i data-lucide="database" class="topic-icon"></i> <div><strong>Hidratação Lógica:</strong> Estado global injetado nativamente via arquivo estático JSON.</div></li>
+      </ul>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Rodrigo</span> Para provar o domínio sobre o framework, implementamos a gestão de estado na raiz estrutural. Não utilizamos bibliotecas como Redux. O fluxo de dados é unidirecional. A matriz de pratos é mantida em um 'useState' no componente App e injetada nas páginas filhas via 'props'. Se o catálogo sofre uma mutação, o React re-renderiza todo o nó da árvore instantaneamente.">
+      <div class="grid-2">
+        <div>
+          <h2 style="font-size: 3.5rem; margin-bottom: 24px;">Árvore de Estados e <br><span class="text-brand">Imutabilidade</span></h2>
+          <p class="subtitle" style="margin-bottom: 32px;">Fluxo de dados estritamente unidirecional.</p>
+          <ul class="topic-list" style="margin-top: 0;">
+            <li class="topic-item"><i data-lucide="network" class="topic-icon"></i> <div>Injeção de dependências nativa via <strong>Props</strong>.</div></li>
+            <li class="topic-item"><i data-lucide="refresh-cw" class="topic-icon"></i> <div>Mutações algorítmicas controladas pelo <strong>useState</strong>.</div></li>
+          </ul>
+        </div>
+        <div class="code-window">
+          <div class="code-header">
+            <div class="mac-btn mac-red"></div><div class="mac-btn mac-yellow"></div><div class="mac-btn mac-green"></div>
+          </div>
+          <pre style="color: #E2E8F0; line-height: 1.8;">
+<span style="color: #C678DD;">const</span> [pratosGlobais, setPratosGlobais] = 
+  <span style="color: #61AFEF;">useState</span>(dados.pratosPopulares);
+
+<span style="color: #C678DD;">return</span> (
+  &lt;<span style="color: #E06C75;">Routes</span>&gt;
+    &lt;<span style="color: #E06C75;">Route</span> 
+      <span style="color: #D19A66;">path</span>=<span style="color: #98C379;">"/pratos"</span> 
+      <span style="color: #D19A66;">element</span>={
+        &lt;<span style="color: #E06C75;">Pratos</span> 
+          <span style="color: #D19A66;">matriz</span>={pratosGlobais} 
+          <span style="color: #D19A66;">setMatriz</span>={setPratosGlobais} 
+        /&gt;
+      } 
+    /&gt;
+  &lt;/<span style="color: #E06C75;">Routes</span>&gt;
+);</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Renan</span> A exigência central do projeto era a manipulação de registros em uma tabela. Cumprimos essa restrição estritamente utilizando a semântica da tag HTML 'table'. As funções de Create, Update e Delete não alteram o array original diretamente; elas criam cópias através do Spread Operator e utilizam a função de ordem superior '.filter()' para garantir a imutabilidade algorítmica exigida pelo React.">
+      <div class="grid-2">
+        <div class="code-window">
+          <div class="code-header">
+            <div class="mac-btn mac-red"></div><div class="mac-btn mac-yellow"></div><div class="mac-btn mac-green"></div>
+          </div>
+          <pre style="color: #E2E8F0; line-height: 1.8;">
+<span style="color: #C678DD;">const</span> <span style="color: #61AFEF;">deletarAtivo</span> = (<span style="color: #D19A66;">id</span>) =&gt; {
+  <span style="color: #61AFEF;">setMatriz</span>(
+    matriz.<span style="color: #61AFEF;">filter</span>(prato =&gt; prato.id !== id)
+  );
+};
+
+&lt;<span style="color: #E06C75;">table</span> <span style="color: #D19A66;">className</span>=<span style="color: #98C379;">"tabela-crud"</span>&gt;
+  &lt;<span style="color: #E06C75;">tbody</span>&gt;
+    {matriz.<span style="color: #61AFEF;">map</span>(prato =&gt; (
+      &lt;<span style="color: #E06C75;">tr</span> <span style="color: #D19A66;">key</span>={prato.id}&gt;
+        &lt;<span style="color: #E06C75;">td</span>&gt;{prato.nome}&lt;/<span style="color: #E06C75;">td</span>&gt;
+      &lt;/<span style="color: #E06C75;">tr</span>&gt;
+    ))}
+  &lt;/<span style="color: #E06C75;">tbody</span>&gt;
+&lt;/<span style="color: #E06C75;">table</span>&gt;</pre>
+        </div>
+        <div>
+          <h2 style="font-size: 3.5rem; margin-bottom: 24px;">Cumprimento Estrito:<br><span class="text-brand">CRUD Tabular</span></h2>
+          <ul class="topic-list">
+            <li class="topic-item"><i data-lucide="check" class="topic-icon"></i> <div><strong>Leitura (Read):</strong> Desdobramento matricial nativo via <code>.map()</code>.</div></li>
+            <li class="topic-item"><i data-lucide="check" class="topic-icon"></i> <div><strong>Escrita (Create/Update):</strong> Clonagem e mutação utilizando <em>Spread Operator</em>.</div></li>
+            <li class="topic-item"><i data-lucide="check" class="topic-icon"></i> <div><strong>Expurgo (Delete):</strong> Filtragem funcional reativa via <code>.filter()</code>.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Randu</span> Para o dashboard financeiro, nós nos recusamos a importar bibliotecas pesadas como Chart.js. Nós desenhamos os gráficos em SVG escrevendo a matemática vetorial no próprio React. No caso do gráfico de pizza, calculamos dinamicamente a circunferência de 2 pi R. A fração de faturamento da filial define exatamente a quebra do contorno, e o React desloca o vetor em tempo real quando um filtro é aplicado.">
+      <div class="grid-2">
+        <div>
+          <h2 style="font-size: 3.5rem; margin-bottom: 24px;">Matemática <br><span class="text-brand">Vetorial Nativa</span></h2>
+          <p class="subtitle" style="margin-bottom: 32px;">Renderização dinâmica de SVG controlada estritamente por cálculos do ciclo de vida do componente.</p>
+          <div class="glass-panel" style="padding: 24px;">
+            <p style="font-family: monospace; font-size: 1.2rem; color: #61DAFB; margin-bottom: 12px;">C = 2 * Math.PI * raio</p>
+            <p style="font-family: monospace; font-size: 1.1rem; color: #D19A66;">dash = fracao * C</p>
+            <p style="font-family: monospace; font-size: 1.1rem; color: #D19A66;">gap = C - dash</p>
+          </div>
+        </div>
+        <div class="glass-panel text-center">
+          <svg width="260" height="260" viewBox="0 0 240 240" style="filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));">
+            <circle cx="120" cy="120" r="90" fill="none" stroke="#FF6B00" stroke-width="40" stroke-dasharray="280 285" transform="rotate(-90 120 120)" />
+            <circle cx="120" cy="120" r="90" fill="none" stroke="#FFC700" stroke-width="40" stroke-dasharray="180 385" stroke-dashoffset="-280" transform="rotate(-90 120 120)" />
+            <circle cx="120" cy="120" r="90" fill="none" stroke="#27AE60" stroke-width="40" stroke-dasharray="105 460" stroke-dashoffset="-460" transform="rotate(-90 120 120)" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Rodrigo</span> Subir uma Single Page Application num servidor apresenta um erro técnico conhecido: o temido Erro 404 em rotas virtuais. Para resolver isso e operar em padrão corporativo, implementamos uma diretiva JSON na borda da Vercel. A rede Edge intercepta qualquer requisição HTTP e injeta o documento raiz, repassando o controle do roteamento de volta para o JavaScript do nosso front-end.">
+      <div class="grid-2">
+        <div class="code-window">
+          <div class="code-header">
+            <div class="mac-btn mac-red"></div><div class="mac-btn mac-yellow"></div><div class="mac-btn mac-green"></div>
+          </div>
+          <pre style="color: #E2E8F0; line-height: 1.8;">
+<span style="color: #5C6370;">// vercel.json (Edge Configuration)</span>
+{
+  <span style="color: #E06C75;">"rewrites"</span>: [
+    {
+      <span style="color: #D19A66;">"source"</span>: <span style="color: #98C379;">"/(.*)"</span>,
+      <span style="color: #D19A66;">"destination"</span>: <span style="color: #98C379;">"/index.html"</span>
+    }
+  ],
+  <span style="color: #E06C75;">"headers"</span>: [ ... ]
+}</pre>
+        </div>
+        <div>
+          <h2 style="font-size: 3.5rem; margin-bottom: 24px;">Roteamento Virtual e <br><span class="text-brand">Deploy Edge</span></h2>
+          <ul class="topic-list">
+            <li class="topic-item"><i data-lucide="globe" class="topic-icon"></i> <div><strong>Vercel Edge Network:</strong> Hospedagem global de alta disponibilidade.</div></li>
+            <li class="topic-item"><i data-lucide="shield" class="topic-icon"></i> <div><strong>Bypass de Erro 404:</strong> Regras estritas de <em>rewrite</em> para suportar rotas de SPA client-side.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide text-center" data-script="<span class='speaker-badge'>Rodrigo</span> A teoria está homologada, auditada e documentada. Mas software real só se prova na execução direta. Vamos ver na prática.">
+      <h1 class="title-giant text-brand" style="font-size: 6rem; text-shadow: 0 0 40px var(--brand-glow);">TRANSIÇÃO <br>AO VIVO.</h1>
+    </div>
+
+    <div class="slide" data-script="<span class='speaker-badge'>Rodrigo</span> O SaaS já está provisionado e com certificado de segurança ativo através do domínio corporativo da Rodrigo Cotrin Engenharia Digital. Vocês podem apontar a câmera e tentar quebrar a nossa aplicação de forma simultânea. Estamos abertos a qualquer pergunta técnica e de negócio. O palco é de vocês.">
+      <div class="grid-2">
+        <div>
+          <h2 style="font-size: 4rem; margin-bottom: 24px;">Auditoria e <br><span class="text-brand">Homologação.</span></h2>
+          <p class="subtitle" style="margin-bottom: 40px;">Escaneie o QR Code para acessar o SaaS injetado na Edge Network.</p>
+          <div style="font-size: 1.4rem; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 16px; background: var(--brand); padding: 16px 24px; border-radius: 16px; display: inline-flex;">
+            <i data-lucide="shield-check" style="width: 28px; height: 28px;"></i> Abertura para Sabatina
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="qr-container">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=https://bitebox.rodrigocotrin.com&margin=0" alt="QR Code" style="display: block; width: 350px; height: 350px; border-radius: 12px;">
+          </div>
+          <p style="margin-top: 24px; font-weight: 800; color: #94A3B8; font-size: 1.4rem; letter-spacing: 1px;">bitebox.rodrigocotrin.com</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="script-box" id="script-box"></div>
+
+  <script>
+    lucide.createIcons();
+
+    const slides = document.querySelectorAll('.slide');
+    const scriptBox = document.getElementById('script-box');
+    let currentSlide = 0;
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+          scriptBox.innerHTML = slide.getAttribute('data-script') || '';
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      } 
+      else if (e.key === 't' || e.key === 'T') {
+        scriptBox.classList.toggle('visible');
+      }
+      else if (e.key === 'Enter' && currentSlide === slides.length - 1) {
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 600);
+      }
+    });
+
+    document.addEventListener('mousedown', (e) => {
+      if(e.target.closest('#script-box')) return;
+      const width = window.innerWidth;
+      if (e.clientX > width / 2) {
+        if (currentSlide < slides.length - 1) { currentSlide++; updateSlide(); }
+      } else {
+        if (currentSlide > 0) { currentSlide--; updateSlide(); }
+      }
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>
