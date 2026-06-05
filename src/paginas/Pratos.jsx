@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Edit2, Trash2, PlusCircle, Save, ArrowUpDown, SortAsc } from 'lucide-react';
-import dados from '../dados/bancoDeDados.json';
 
 export default function Pratos({ onAviso, pratosCompartilhados, setPratosCompartilhados }) {
   const [nome, setNome] = useState('');
@@ -13,7 +12,14 @@ export default function Pratos({ onAviso, pratosCompartilhados, setPratosCompart
     if (tipo === 'preco-cres') aux.sort((a, b) => a.preco - b.preco);
     if (tipo === 'preco-decres') aux.sort((a, b) => b.preco - a.preco);
     setPratosCompartilhados(aux);
-    onAviso("Ordenação de catálogo aplicada com sucesso!");
+    onAviso("Ordenação de matriz aplicada!");
+  };
+
+  const iniciarEdicao = (prato) => {
+    setEditandoId(prato.id);
+    setNome(prato.nome);
+    setPreco(prato.preco.toString());
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const salvarPrato = (e) => {
@@ -21,80 +27,106 @@ export default function Pratos({ onAviso, pratosCompartilhados, setPratosCompart
     if (!nome || !preco) return;
 
     if (editandoId) {
-      // UPDATE GLOBAL
       setPratosCompartilhados(pratosCompartilhados.map(p => p.id === editandoId ? { ...p, nome, preco: parseFloat(preco) } : p));
       setEditandoId(null);
-      onAviso("Item de cardápio alterado com sucesso!");
+      onAviso("Registro modificado no banco de dados.");
     } else {
-      // CREATE GLOBAL
       const novo = { 
         id: Date.now(), 
         categoriaId: 1, 
         nome, 
         preco: parseFloat(preco), 
         avaliacao: 5.0, 
-        tag: "Injetado", 
+        tag: "Novo Cadastro", 
         imagem: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80", 
-        descricao: "Insumo e registro técnico cadastrado via painel administrativo SaaS." 
+        descricao: "Insumo técnico parametrizado pelo painel administrativo." 
       };
       setPratosCompartilhados([novo, ...pratosCompartilhados]);
-      onAviso("Item adicionado ao catálogo global!");
+      onAviso("Novo ativo provisionado com sucesso.");
     }
     setNome(''); setPreco('');
   };
 
   return (
     <div className="animar-entrada conteudo-principal">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '20px' }}>
         <div>
-          <h1 style={{ fontSize: '1.5rem', color: 'var(--texto-escuro)', fontWeight: '700' }}>Controle de Patrimônio de Cardápio</h1>
-          <p style={{ color: 'var(--texto-mutado)', fontSize: '0.9rem' }}>Gerencie preços, insumos e listagens do ecossistema.</p>
+          <h1 style={{ fontSize: '1.8rem', color: 'var(--texto-escuro)', fontWeight: '800' }}>Engenharia de Catálogo</h1>
+          <p style={{ color: 'var(--texto-mutado)', fontSize: '0.95rem' }}>Controle estrito de CRUD para listagens e preços de insumos.</p>
         </div>
         
-        {/* Submenu de Ordenação com Ícones Estáveis */}
-        <div style={{ display: 'flex', gap: '8px', background: 'var(--fundo-card)', padding: '6px', borderRadius: '14px', border: '1px solid var(--borda)', boxShadow: 'var(--sombra-leve)' }}>
-          <button className="btn" style={{ padding: '10px 14px', borderRadius: '10px', fontSize: '0.85rem', background: 'transparent', color: 'var(--texto-mutado)', gap: '6px' }} onClick={() => ordenar('nome')}>
-            <SortAsc size={16} /> Nome A-Z
+        <div style={{ display: 'flex', gap: '8px', background: 'var(--fundo-card)', padding: '8px', borderRadius: '16px', border: '1px solid var(--borda)', boxShadow: 'var(--sombra-leve)' }}>
+          <button className="btn" style={{ padding: '10px 16px', borderRadius: '10px', fontSize: '0.85rem', background: 'transparent', color: 'var(--texto-escuro)', gap: '8px' }} onClick={() => ordenar('nome')}>
+            <SortAsc size={16} color="var(--texto-mutado)" /> Alfabética
           </button>
-          <button className="btn" style={{ padding: '10px 14px', borderRadius: '10px', fontSize: '0.85rem', background: 'transparent', color: 'var(--texto-mutado)', gap: '6px' }} onClick={() => ordenar('preco-cres')}>
-            <ArrowUpDown size={16} /> Menor Preço
+          <button className="btn" style={{ padding: '10px 16px', borderRadius: '10px', fontSize: '0.85rem', background: 'transparent', color: 'var(--texto-escuro)', gap: '8px' }} onClick={() => ordenar('preco-cres')}>
+            <ArrowUpDown size={16} color="var(--texto-mutado)" /> Base Alta
           </button>
-          <button className="btn" style={{ padding: '10px 14px', borderRadius: '10px', fontSize: '0.85rem', background: 'transparent', color: 'var(--texto-mutado)', gap: '6px' }} onClick={() => ordenar('preco-decres')}>
-            <ArrowUpDown size={16} /> Maior Preço
+          <button className="btn" style={{ padding: '10px 16px', borderRadius: '10px', fontSize: '0.85rem', background: 'transparent', color: 'var(--texto-escuro)', gap: '8px' }} onClick={() => ordenar('preco-decres')}>
+            <ArrowUpDown size={16} color="var(--texto-mutado)" /> Base Baixa
           </button>
         </div>
       </div>
       
-      <div className="painel-crud" style={{ background: editandoId ? 'rgba(255, 107, 0, 0.03)' : 'var(--fundo-card)', marginBottom: '32px' }}>
-        <h3 style={{ marginBottom: '20px', color: editandoId ? 'var(--primaria)' : 'var(--texto-mutado)', fontSize: '1rem' }}>
-          {editandoId ? 'Alterar Especificações do Produto' : 'Provisionar Novo Item de Venda'}
+      <div className="painel-crud" style={{ marginBottom: '40px', position: 'relative', overflow: 'hidden' }}>
+        {editandoId && <div style={{ position: 'absolute', top: 0, left: 0, width: '6px', height: '100%', background: 'var(--primaria)' }}></div>}
+        <h3 style={{ marginBottom: '24px', color: 'var(--texto-escuro)', fontSize: '1.1rem', fontWeight: '800' }}>
+          {editandoId ? 'Atualização de Instância de Produto' : 'Provisionamento de Novo Registro'}
         </h3>
         <form onSubmit={salvarPrato} className="form-linha">
-          <input type="text" placeholder="Nome técnico do produto" value={nome} onChange={(e) => setNome(e.target.value)} />
-          <input type="number" step="0.01" placeholder="Preço Base (R$)" value={preco} onChange={(e) => setPreco(e.target.value)} />
-          <button type="submit" className="btn btn-primario" style={{ minWidth: '180px' }}>
+          <input type="text" placeholder="Nomeclatura técnica" value={nome} onChange={(e) => setNome(e.target.value)} />
+          <input type="number" step="0.01" placeholder="Valor Unitário (R$)" value={preco} onChange={(e) => setPreco(e.target.value)} />
+          <button type="submit" className="btn btn-primario" style={{ minWidth: '200px' }}>
             {editandoId ? <Save size={18} /> : <PlusCircle size={18} />}
-            {editandoId ? 'Salvar Item' : 'Provisionar'}
+            {editandoId ? 'Confirmar Mutação' : 'Injetar no Banco'}
           </button>
         </form>
       </div>
 
-      <div style={{ display: 'grid', gap: '16px' }}>
-        {pratosCompartilhados.map(prato => (
-          <div key={prato.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--fundo-card)', padding: '16px 24px', border: '1px solid var(--borda)', borderRadius: '16px', boxShadow: 'var(--sombra-leve)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <img src={prato.imagem} alt={prato.nome} style={{ width: '60px', height: '60px', borderRadius: '12px', objectFit: 'cover' }} />
-              <div>
-                <h3 style={{ fontSize: '1.1rem', color: 'var(--texto-escuro)' }}>{prato.nome}</h3>
-                <span style={{ color: 'var(--primaria)', fontWeight: '700' }}>R$ {prato.preco.toFixed(2)}</span>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '12px' }}>
-              <button onClick={() => iniciarEdicao(prato)} style={{ background: 'transparent', border: '1px solid var(--borda)', padding: '10px', borderRadius: '8px', cursor: 'pointer', color: 'var(--texto-escuro)' }}><Edit2 size={18} /></button>
-              <button onClick={() => { setPratosCompartilhados(pratosCompartilhados.filter(p => p.id !== prato.id)); onAviso("Item removido do ecossistema!"); }} style={{ background: '#FFF0F0', border: 'none', padding: '10px', borderRadius: '8px', cursor: 'pointer', color: '#E53E3E' }}><Trash2 size={18} /></button>
-            </div>
-          </div>
-        ))}
+      <div className="tabela-container">
+        <table className="tabela-crud">
+          <thead>
+            <tr>
+              <th>Identificação do Ativo</th>
+              <th>Status Lógico</th>
+              <th>Valor Base</th>
+              <th style={{ textAlign: 'right' }}>Ações de Controle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pratosCompartilhados.map(prato => (
+              <tr key={prato.id}>
+                <td>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <img src={prato.imagem} alt={prato.nome} style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover' }} />
+                    <div>
+                      <div style={{ fontWeight: '700', color: 'var(--texto-escuro)', fontSize: '1.05rem' }}>{prato.nome}</div>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--texto-mutado)' }}>UUID: {prato.id}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span style={{ background: 'rgba(39, 174, 96, 0.1)', color: '#27AE60', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: '700' }}>
+                    Ativo
+                  </span>
+                </td>
+                <td>
+                  <span style={{ fontWeight: '800', color: 'var(--texto-escuro)' }}>R$ {prato.preco.toFixed(2)}</span>
+                </td>
+                <td style={{ textAlign: 'right' }}>
+                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                    <button onClick={() => iniciarEdicao(prato)} style={{ background: 'var(--fundo-app)', border: '1px solid var(--borda)', padding: '10px', borderRadius: '10px', cursor: 'pointer', color: 'var(--texto-escuro)', transition: 'var(--transicao-suave)' }} onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primaria)'} onMouseOut={e => e.currentTarget.style.borderColor = 'var(--borda)'}>
+                      <Edit2 size={18} />
+                    </button>
+                    <button onClick={() => { setPratosCompartilhados(pratosCompartilhados.filter(p => p.id !== prato.id)); onAviso("Instância purgada da memória."); }} style={{ background: 'rgba(231, 76, 60, 0.1)', border: 'none', padding: '10px', borderRadius: '10px', cursor: 'pointer', color: '#E74C3C', transition: 'var(--transicao-suave)' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.2)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(231, 76, 60, 0.1)'}>
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@
   "pratosPopulares": [
     { "id": 101, "categoriaId": 1, "nome": "Bitebox Supreme", "preco": 35.90, "avaliacao": 4.9, "tag": "Alta Rotação", "imagem": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80", "descricao": "Blend de 180g de Angus, queijo cheddar inglês, bacon rústico e molho especial no pão brioche." },
     { "id": 102, "categoriaId": 5, "nome": "Frango Rústico", "preco": 42.50, "avaliacao": 4.8, "tag": "Estável", "imagem": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80", "descricao": "Peito de frango grelhado com ervas finas, acompanhado de legumes salteados na manteiga." },
-    { "id": 103, "categoriaId": 4, "nome": "Pizza Artesanal", "preco": 65.00, "avaliacao": 4.7, "tag": "Margem Alta", "imagem": "https://images.unsplash.com/photo-1513104890e38-7c7f43c25e28?auto=format&fit=crop&w=600&q=80", "descricao": "Massa de fermentação natural, molho San Marzano, mozzarella fresca e manjericão." },
+    { "id": 103, "categoriaId": 4, "nome": "Pizza Artesanal", "preco": 65.00, "avaliacao": 4.7, "tag": "Margem Alta", "imagem": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80", "descricao": "Massa de fermentação natural, molho San Marzano, mozzarella fresca e manjericão." },
     { "id": 104, "categoriaId": 2, "nome": "Suco Detox Premium", "preco": 15.00, "avaliacao": 4.9, "tag": "Fresco", "imagem": "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80", "descricao": "Laranja, cenoura, maçã e gengibre prensados a frio." },
     { "id": 105, "categoriaId": 8, "nome": "Combinado Omakase", "preco": 120.00, "avaliacao": 5.0, "tag": "Crítico", "imagem": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80", "descricao": "Seleção do chef com 30 peças de cortes nobres de salmão, atum e peixe branco." },
     { "id": 106, "categoriaId": 6, "nome": "Salada Mediterrânea", "preco": 32.90, "avaliacao": 4.6, "tag": "Estável", "imagem": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80", "descricao": "Mix de folhas, tomate cereja, azeitonas pretas, queijo feta e azeite trufado." },
@@ -37,8 +37,8 @@
     { "id": 2, "cliente": "Beatriz Ramos", "pedidoId": "PED-9401", "texto": "Poderia enviar sachês extras de molho barbecue?", "horario": "19:15", "respondida": true }
   ],
   "filiais": [
-    { "id": 1, "local": "Vila Nova Mazzei", "status": "Operando", "faturamento": 8450.00, "eficiencia": "98%" },
-    { "id": 2, "local": "Santana Centro", "status": "Operando", "faturamento": 12300.50, "eficiencia": "94%" },
-    { "id": 3, "local": "Guarulhos Aeroporto", "status": "Manutenção", "faturamento": 4500.00, "eficiencia": "80%" }
+    { "id": 1, "local": "Vila Nova Mazzei", "status": "Operando", "faturamento": 8450.00, "eficiencia": "98%", "cor": "#FF6B00" },
+    { "id": 2, "local": "Santana Centro", "status": "Operando", "faturamento": 12300.50, "eficiencia": "94%", "cor": "#FFC700" },
+    { "id": 3, "local": "Guarulhos Aeroporto", "status": "Manutenção", "faturamento": 4500.00, "eficiencia": "80%", "cor": "#27AE60" }
   ]
 }

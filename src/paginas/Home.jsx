@@ -1,53 +1,51 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Sun, Moon, Eye } from 'lucide-react';
+import { Search, Sun, Moon } from 'lucide-react';
 import dados from '../dados/bancoDeDados.json';
 
 export default function Home({ toggleTema, temaEscuro, pratosCompartilhados }) {
   const [busca, setBusca] = useState('');
   const [categoriaAtiva, setCategoriaAtiva] = useState(null);
 
-  // Filtro simultâneo por texto e categoria baseado nas 8 categorias exigidas
   const pratosFiltrados = pratosCompartilhados
     .filter(prato => categoriaAtiva ? prato.categoriaId === categoriaAtiva : true)
     .filter(prato => prato.nome.toLowerCase().includes(busca.toLowerCase()));
 
   return (
     <div className="conteudo-principal animar-entrada">
-      <header className="topbar" style={{ marginBottom: '40px' }}>
+      <header className="topbar" style={{ marginBottom: '48px' }}>
         <div style={{ position: 'relative', flex: 1, maxWidth: '500px' }}>
           <Search size={20} color="var(--texto-mutado)" style={{ position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)' }} />
           <input 
             type="text" 
-            placeholder="Pesquisar insumo ou produto no catálogo..." 
+            placeholder="Pesquisar registro de insumo..." 
             className="barra-pesquisa" 
-            style={{ paddingLeft: '50px', width: '100%' }} 
+            style={{ paddingLeft: '56px', width: '100%' }} 
             value={busca} 
             onChange={(e) => setBusca(e.target.value)} 
           />
         </div>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <button className="btn-tema" onClick={toggleTema}>{temaEscuro ? <Sun size={20} /> : <Moon size={20} />}</button>
           <div className="perfil-box">
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontWeight: '700', color: 'var(--texto-escuro)' }}>{dados.usuario.nome}</div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--texto-mutado)', fontWeight: '500' }}>{dados.usuario.cargo}</div>
+              <div style={{ fontWeight: '800', color: 'var(--texto-escuro)', fontSize: '0.95rem' }}>{dados.usuario.nome}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--texto-mutado)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{dados.usuario.cargo}</div>
             </div>
             <img src={dados.usuario.foto} alt="Perfil" />
           </div>
         </div>
       </header>
 
-      <section className="banner-bitebox" style={{ marginBottom: '40px' }}>
-        <div>
-          <h1>Bitebox SaaS Core</h1>
-          <p>Monitoramento tático de suprimentos, rotação de estoque e categorias ativas de venda.</p>
+      <section className="banner-bitebox" style={{ marginBottom: '48px' }}>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <h1>Bitebox Operations</h1>
+          <p style={{ fontSize: '1.1rem', color: 'var(--texto-mutado)', maxWidth: '600px', lineHeight: '1.6' }}>Hub centralizado para monitoramento tático de suprimentos, rotação de estoque e telemetria de vendas.</p>
         </div>
       </section>
 
-      {/* As 8 Categorias Solicitadas Remanescentes */}
-      <section style={{ marginBottom: '40px' }}>
-        <h2 style={{ marginBottom: '20px', color: 'var(--texto-escuro)' }}>Categorias de Insumos ({dados.categorias.length})</h2>
+      <section style={{ marginBottom: '48px' }}>
+        <h2 style={{ marginBottom: '24px', color: 'var(--texto-escuro)', fontSize: '1.4rem', fontWeight: '800' }}>Segmentação de Ativos ({dados.categorias.length})</h2>
         <div className="grid-categorias">
           {dados.categorias.map(cat => (
             <div 
@@ -62,22 +60,19 @@ export default function Home({ toggleTema, temaEscuro, pratosCompartilhados }) {
         </div>
       </section>
 
-      {/* Listagem Reativa dos 10 Pratos Sincronizada em Tempo Real com o CRUD */}
       <section>
-        <h2 style={{ marginBottom: '20px', color: 'var(--texto-escuro)' }}>Metrificação de Produtos Cadastrados</h2>
+        <h2 style={{ marginBottom: '24px', color: 'var(--texto-escuro)', fontSize: '1.4rem', fontWeight: '800' }}>Metrificação de Produtos Homologados</h2>
         <div className="grid-pratos">
           {pratosFiltrados.map(prato => (
-            <Link to={`/prato/${prato.id}`} key={prato.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="prato-card">
-                {prato.tag && <span className="tag-desconto">{prato.tag}</span>}
-                <div style={{ height: '180px', borderRadius: '12px', marginBottom: '16px', overflow: 'hidden' }}>
-                  <img src={prato.imagem} alt={prato.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--texto-escuro)' }}>{prato.nome}</h3>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--primaria)' }}>R$ {prato.preco.toFixed(2)}</span>
-                  <button style={{ background: 'var(--borda)', border: 'none', padding: '10px', borderRadius: '10px', color: 'var(--texto-escuro)', display: 'flex', alignItems: 'center' }} onClick={(e) => e.preventDefault()}><Eye size={18} /></button>
-                </div>
+            <Link to={`/prato/${prato.id}`} key={prato.id} className="prato-card">
+              {prato.tag && <span className="tag-desconto">{prato.tag}</span>}
+              <div style={{ height: '200px', borderRadius: '12px', marginBottom: '20px', overflow: 'hidden' }}>
+                <img src={prato.imagem} alt={prato.nome} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={e => e.target.style.transform = 'scale(1.05)'} onMouseOut={e => e.target.style.transform = 'scale(1)'} />
+              </div>
+              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--texto-escuro)', fontWeight: '800' }}>{prato.nome}</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '1.35rem', fontWeight: '900', color: 'var(--primaria)' }}>R$ {prato.preco.toFixed(2)}</span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--texto-mutado)', fontWeight: '600' }}>ID: {prato.id}</span>
               </div>
             </Link>
           ))}
